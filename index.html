@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>踩點圖鑑｜書店、咖啡廳、藝廊與服飾店</title>
+<meta name="description" content="我踩點過的書店、咖啡廳、藝廊與特色服飾店紀錄。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="hero">
+  <h1>踩點圖鑑</h1>
+  <p class="hero__lead">我走過的書店、咖啡廳、藝廊與特色服飾店。點一個圖形，只看那一類。</p>
+  <nav class="filters" id="filters" aria-label="依店家類型篩選"></nav>
+  <button class="reset" id="reset" type="button" hidden>顯示全部</button>
+</header>
+<main id="groups"></main>
+<footer class="foot"><p>共 <span id="total">0</span> 間店，持續更新中。</p></footer>
+
+<dialog id="modal" aria-labelledby="m-title">
+  <button class="modal__close" id="m-close" type="button" aria-label="關閉">×</button>
+  <div class="modal__body" id="m-body"></div>
+</dialog>
+
+<script src="data/shops.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

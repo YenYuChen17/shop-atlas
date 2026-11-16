@@ -1,0 +1,82 @@
+/* 全站唯一樣式。只使用以下五色，不得新增。 */
+:root{
+  --cream:#F3EDE0; --ink:#232123; --sage:#788176; --rusk:#CCB999; --pipe:#5E1803;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 1rem/1.8 var(--sans)}
+:focus-visible{outline:3px solid var(--pipe);outline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+
+/* 類型 → 顏色（--bg 底色、--fg 其上的文字色） */
+.t-bookstore{--bg:var(--pipe);--fg:var(--cream)}
+.t-cafe{--bg:var(--sage);--fg:var(--ink)}
+.t-gallery{--bg:var(--rusk);--fg:var(--ink)}
+.t-fashion{--bg:var(--ink);--fg:var(--cream)}
+
+/* 類型 → 幾何圖形（書店＝方形，不需額外設定） */
+.shape{display:block;aspect-ratio:1;background:var(--bg)}
+.shape--cafe{border-radius:50%}
+.shape--gallery{clip-path:polygon(50% 4%,98% 94%,2% 94%)}
+.shape--fashion{clip-path:polygon(50% 0,61% 35%,98% 38%,68% 59%,79% 95%,50% 73%,21% 95%,32% 59%,2% 38%,39% 35%)}
+
+/* 首頁 */
+.hero{padding:clamp(2rem,6vw,5rem) clamp(1rem,5vw,4rem) 2rem;min-height:92vh;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font:900 clamp(3rem,11vw,8rem)/1 var(--serif);letter-spacing:.04em}
+.hero__lead{max-width:34em;margin:1.2rem 0 2.5rem}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;max-width:56rem}
+.filter{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;text-align:left;transition:opacity .3s}
+.filter .shape{width:100%;max-width:150px;transform:translateY(calc(var(--sy,0) * var(--k) * 1px)) rotate(calc(var(--sy,0) * var(--r) * 1deg));transition:scale .3s}
+.filter[aria-pressed="true"] .shape{scale:1.12}
+.filters.has-active .filter[aria-pressed="false"]{opacity:.35}
+.reset{margin-top:1.5rem;align-self:flex-start;border-bottom:2px solid var(--ink)}
+.reset[hidden]{display:none}
+
+/* 類型區塊 */
+.group{padding:3rem clamp(1rem,5vw,4rem);border-top:2px solid var(--ink)}
+.group[hidden]{display:none}
+.js .group{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.js .group.in{opacity:1;transform:none}
+.group__head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.group__head .shape{width:3rem}
+.group__head h2{font:900 clamp(1.6rem,4vw,2.4rem)/1.2 var(--serif)}
+.group__count{margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+
+/* 店家卡片：滑鼠移上去翻轉 */
+.card{perspective:900px;height:260px;width:100%;text-align:left}
+.card__inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.card__face{position:absolute;inset:0;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;backface-visibility:hidden;overflow:hidden}
+.card__front{background:var(--bg);color:var(--fg)}
+.card__front .shape{position:absolute;right:-18%;bottom:-18%;width:70%;background:var(--fg);opacity:.14}
+.card__back{background:var(--cream);color:var(--ink);border:2px solid var(--bg);transform:rotateY(180deg)}
+.card__name{font:600 1.3rem/1.4 var(--serif);position:relative}
+.card__meta{font-size:.9rem;position:relative}
+.card__tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{border:1.5px solid currentColor;padding:0 .6rem;font-size:.85rem;border-radius:99px}
+@media (hover:hover){
+  .card:hover .card__inner,.card:focus-visible .card__inner{transform:rotateY(180deg)}
+}
+
+/* 詳情視窗 */
+dialog{margin:auto;width:min(92vw,34rem);max-height:88vh;overflow:auto;border:2px solid var(--ink);background:var(--cream);color:var(--ink);padding:0}
+dialog::backdrop{background:rgba(35,33,35,.6)}
+dialog[open]{animation:pop .35s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.92)}}
+.modal__close{position:absolute;top:.5rem;right:.8rem;font-size:2rem;line-height:1;z-index:1;color:var(--fg,var(--ink))}
+.modal__top{background:var(--bg);color:var(--fg);padding:2rem 1.5rem 1.5rem;position:relative;overflow:hidden}
+.modal__top .shape{position:absolute;right:-8%;top:-20%;width:45%;background:var(--fg);opacity:.14}
+.modal__top h3{font:900 1.7rem/1.3 var(--serif);position:relative}
+.modal__content{padding:1.5rem}
+.modal__content dl{display:grid;grid-template-columns:5em 1fr;gap:.4rem 1rem;margin-bottom:1.2rem}
+.modal__content dt{font-weight:500}
+.tbd{opacity:.55}
+.foot{padding:3rem clamp(1rem,5vw,4rem);border-top:2px solid var(--ink)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .js .group{opacity:1;transform:none}
+  .filter .shape{transform:none}
+}
